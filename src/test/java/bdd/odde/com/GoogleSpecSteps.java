@@ -1,6 +1,5 @@
 package bdd.odde.com;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
@@ -8,15 +7,14 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class GoogleSpecSteps {
+    private final GoogleDSL googleDSL = new GoogleDSL();
     private WebDriver driver;
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "/Users/lidingshan/lib/selenium/chromedriver");
-        driver = new ChromeDriver();
+        driver = googleDSL.initDriver();
     }
 
     @After
@@ -26,7 +24,7 @@ public class GoogleSpecSteps {
 
     @When("^navigate to google home$")
     public void navigate_to_google_home() throws Throwable {
-        driver.get("https://www.google.com");
+        googleDSL.goHome();
     }
 
     @Then("^the page title should be \"(.*?)\"$")
