@@ -5,21 +5,18 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class GoogleSpecSteps {
     private final GoogleDSL googleDSL = new GoogleDSL();
-    private WebDriver driver;
 
     @Before
     public void setUp() {
-        driver = googleDSL.initDriver();
+        googleDSL.initDriver();
     }
 
     @After
     public void tearDown() {
-        driver.quit();
+        googleDSL.close();
     }
 
     @When("^navigate to google home$")
@@ -29,18 +26,17 @@ public class GoogleSpecSteps {
 
     @Then("^the page title should be \"(.*?)\"$")
     public void the_page_title_should_be(String expected) throws Throwable {
-        Assert.assertEquals(expected, driver.getTitle());
+        Assert.assertEquals(expected, googleDSL.getTitle());
     }
 
     @When("^search the keyword of \"(.*?)\"$")
     public void search_the_keyword_of(String keyword) throws Throwable {
-        driver.findElement(By.name("q")).sendKeys(keyword);
-        driver.findElement(By.name("btnK")).submit();
+        googleDSL.search(keyword);
     }
 
     @Then("^the result should include \"(.*?)\"$")
     public void the_result_should_include(String expected) throws Throwable {
-        Assert.assertTrue(driver.getPageSource().contains(expected));
+        Assert.assertTrue(googleDSL.hasFound(expected));
     }
 
 }
