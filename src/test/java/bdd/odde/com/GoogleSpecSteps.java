@@ -7,11 +7,11 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 
 public class GoogleSpecSteps {
-    private final GoogleDSL googleDSL = new GoogleDSL();
+    private GoogleDSL googleDSL;
 
     @Before
     public void setUp() {
-        googleDSL.initDriver();
+        this.googleDSL = new GoogleDSL();
     }
 
     @After

@@ -1,39 +1,33 @@
 package bdd.odde.com;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class GoogleDSL {
 
-    private WebDriver _driver;
+    private SearchPage searchPage;
 
     public GoogleDSL() {
-    }
-
-    public void initDriver() {
-        System.setProperty("webdriver.chrome.driver", "/Users/lidingshan/lib/selenium/chromedriver");
-        _driver = new ChromeDriver();
+        this.searchPage = new SearchPage();
     }
 
     public void goHome() {
-        this._driver.get("https://www.google.com");
+        searchPage.load();
     }
 
     public void search(String keyword) {
-        _driver.findElement(By.name("q")).sendKeys(keyword);
-        _driver.findElement(By.name("btnK")).submit();
+        searchPage.inputAndSubmit(keyword);
     }
 
     public boolean hasFound(String content) {
-        return _driver.getPageSource().contains(content);
+        return searchPage.contains(content);
     }
 
     public String getTitle() {
-        return _driver.getTitle();
+        return searchPage.getTitle();
     }
 
     public void close() {
-        _driver.quit();
+        searchPage.close();
     }
+
 }
