@@ -16,7 +16,7 @@ public class SearchPage {
         _driver.findElement(By.name("btnK")).submit();
     }
 
-    public WebDriver initDriver() {
+    private WebDriver initDriver() {
         System.setProperty("webdriver.chrome.driver", "/Users/lidingshan/lib/selenium/chromedriver");
         this._driver = new ChromeDriver();
         return this._driver;
