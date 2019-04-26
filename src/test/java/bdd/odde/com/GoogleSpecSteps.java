@@ -7,36 +7,36 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 
 public class GoogleSpecSteps {
-    private GoogleDSL googleDSL;
+    private SearchPage searchPage;
 
     @Before
     public void setUp() {
-        this.googleDSL = new GoogleDSL();
+        searchPage = new SearchPage();
     }
 
     @After
     public void tearDown() {
-        googleDSL.close();
+        searchPage.close();
     }
 
     @When("^navigate to google home$")
     public void navigate_to_google_home() throws Throwable {
-        googleDSL.goHome();
+        searchPage.load();
     }
 
     @Then("^the page title should be \"(.*?)\"$")
     public void the_page_title_should_be(String expected) throws Throwable {
-        Assert.assertEquals(expected, googleDSL.getTitle());
+        Assert.assertEquals(expected, searchPage.getTitle());
     }
 
     @When("^search the keyword of \"(.*?)\"$")
     public void search_the_keyword_of(String keyword) throws Throwable {
-        googleDSL.search(keyword);
+        searchPage.inputAndSubmit(keyword);
     }
 
     @Then("^the result should include \"(.*?)\"$")
     public void the_result_should_include(String expected) throws Throwable {
-        Assert.assertTrue(googleDSL.hasFound(expected));
+        Assert.assertTrue(searchPage.contains(expected));
     }
 
 }
